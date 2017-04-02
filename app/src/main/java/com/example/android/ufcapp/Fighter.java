@@ -15,9 +15,6 @@ public class Fighter {
     /** The nickname name. */
     private String nickname;
 
-    /** The age. */
-    private int age;
-
     /** Number of wins. */
     private int wins;
 
@@ -35,23 +32,21 @@ public class Fighter {
      *
      * @param firstName The first name of the fighter.
      * @param theLast  The last name of the fighter.
-     * @param nickname The fighters nickname.
      * @param wins  The number of wins of the fighter.
      * @param losses  The number of losses of the fighter.
      * @param draws The number of draws of the fighter.
      * @param isChampion Is the fighter a current champion in his/her weight division.
      * @param age The age of the fighter.
      * */
-    public Fighter (String firstName, String theLast, String nickname, int wins, int losses, int draws, boolean isChampion, int age) {
+    public Fighter (String firstName, String theLast, String nickname, int wins, int losses, int draws, boolean isChampion) {
 
         this.firstName   = firstName;
         this.lastName    = theLast;
-        this.nickname    = nickname;
         this.wins        = wins;
+        this.nickname    = nickname;
         this.losses      = losses;
         this.draws       = draws;
         this.isChampion  = isChampion;
-        this.age         = age;
     }
 
     public void setFirstName(String firstName) {
@@ -100,14 +95,6 @@ public class Fighter {
 
     public int getDraws() {
         return draws;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public void setChampion(boolean isChampion) {
