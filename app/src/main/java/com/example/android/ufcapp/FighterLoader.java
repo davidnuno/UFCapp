@@ -1,6 +1,5 @@
 package com.example.android.ufcapp;
 
-import java.net.URL;
 import java.util.List;
 
 import android.content.AsyncTaskLoader;
