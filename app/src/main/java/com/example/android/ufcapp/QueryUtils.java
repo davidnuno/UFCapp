@@ -75,7 +75,10 @@ public class QueryUtils {
                 //Is the fighter a champion
                 boolean isChamp = fightersArray.getJSONObject(index).getBoolean("title_holder");
 
-                fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, isChamp));
+                //Retrieve fighter thumbnail
+                String thumbnail = fightersArray.getJSONObject(index).getString("thumbnail");
+
+                fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, isChamp, thumbnail));
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
