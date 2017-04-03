@@ -3,6 +3,7 @@ package com.example.android.ufcapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,7 +34,8 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         View listItemView = convertView;
 
         if (listItemView == null) {
-            R.layout.activity_fighter, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.activity_fighter, parent, false);
         }
 
         Fighter currentFighter = getItem(position);
