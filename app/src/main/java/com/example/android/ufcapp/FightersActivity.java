@@ -41,10 +41,12 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     public void onLoadFinished(Loader<List<Fighter>> loader, List<Fighter> data) {
 
+        mAdapter.clear();
     }
 
     @Override
     public void onLoaderReset(Loader<List<Fighter>> loader) {
 
+        mAdapter.clear();
     }
 }

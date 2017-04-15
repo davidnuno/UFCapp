@@ -32,8 +32,7 @@ public class QueryUtils {
      * This class is only meant to hold static variables and methods, which can be accessed
      * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
      */
-    private QueryUtils() {
-    }
+    private QueryUtils() {}
 
     public static List<Fighter> extractFeatureFromJson(String fighterJSON) {
 
@@ -168,7 +167,7 @@ public class QueryUtils {
     }//END OF makeHttpRequest METHOD
 
     public static List<Fighter> fetchEarthquakeData(String requestURL) {
-
+        //Crete the URL from String
         URL url = createUrl(requestURL);
 
         String jsonResponse = null;
@@ -179,6 +178,7 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Problem making the HTTP request" , e);
         }
 
+        //Extract the fighters from JSON and save them in a List.
         List<Fighter> fighters = extractFeatureFromJson(jsonResponse);
 
         return fighters;

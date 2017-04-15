@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -40,6 +41,25 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
 
         Fighter currentFighter = getItem(position);
 
-        return super.getView(position, convertView, parent);
+        //Find the fighter name ID
+        TextView fighterName = (TextView) listItemView.findViewById(R.id.fighter_name);
+
+        //Set the fighter name
+        fighterName.setText(concatenateName(currentFighter.getFirstName(), currentFighter.getLastName(), currentFighter.getNickname()));
+
+        return listItemView;
+    }
+
+    private String concatenateName(String first, String last, String nickname) {
+
+        String fullName;
+        
+        if(nickname != null && !nickname.isEmpty()) {
+            fullName = first + " " + last + " "  + nickname;
+            return fullName;
+        } else {
+            fullName = first + " " + last;
+            return fullName;
+        }
     }
 }

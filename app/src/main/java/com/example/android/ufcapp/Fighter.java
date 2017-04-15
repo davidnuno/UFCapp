@@ -54,14 +54,29 @@ public class Fighter {
         this.thumbnail  = thumbnail;
     }
 
+    /**
+     * Getter for the fighters first name.
+     *
+     * @return the first name, of tyep {@String}.
+     * */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Getter for the fighters last name.
+     *
+     * @return the last name, of tyep {@String}.
+     * */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Getter for the fighters nickname.
+     *
+     * @return the nickname, of tyep {@String}.
+     * */
     public String getNickname() {
         return nickname;
     }
