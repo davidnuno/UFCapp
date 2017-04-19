@@ -11,7 +11,8 @@ import android.content.Context;
 
 public class FighterLoader extends AsyncTaskLoader<List<Fighter>> {
 
-    private final static String LOG_TAG = FighterLoader.class.getSimpleName() + " Steps => ";
+    //The log tag used for tracking purposes.
+    private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
 
     /** Query url. */
     private String mUrl;

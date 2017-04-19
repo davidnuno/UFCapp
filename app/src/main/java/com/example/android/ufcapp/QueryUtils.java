@@ -18,13 +18,16 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 /**
  * Created by david on 4/2/17.
  */
 
 public class QueryUtils {
 
-    private final static String LOG_TAG = QueryUtils.class.getSimpleName() + " Steps => ";
+    //The log tag used for tracking purposes.
+    private final static String LOG_TAG = " Steps => " + QueryUtils.class.getSimpleName();
 
 
     /**
@@ -53,6 +56,7 @@ public class QueryUtils {
 
             for (int index = 0; index < fightersArray.length(); index++) {
 
+                Log.v(LOG_TAG, "Retrieving fighter info from JSON..");
                 //Retrieve the fighters first name
                 String fName = fightersArray.getJSONObject(index).getString("first_name");
 
@@ -77,6 +81,7 @@ public class QueryUtils {
                 //Retrieve fighter thumbnail
                 String thumbnail = fightersArray.getJSONObject(index).getString("thumbnail");
 
+                Log.v(LOG_TAG, "Creating a new fighter object");
                 fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, isChamp, thumbnail));
             }
         } catch (JSONException e) {

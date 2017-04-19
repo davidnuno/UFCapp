@@ -17,6 +17,9 @@ import java.util.List;
 
 public class FighterAdapter extends ArrayAdapter<Fighter> {
 
+    //The log tag used for tracking purposes.
+    private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
+
     /**
      * Constructs a new {@link FighterAdapter}.
      *
