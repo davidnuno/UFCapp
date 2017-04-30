@@ -37,7 +37,7 @@ public class FighterLoader extends AsyncTaskLoader<List<Fighter>> {
         }
 
         // Perform the network request, parse the response, and extract a list of fighters.
-        List<Fighter> fighters = QueryUtils.extractFeatureFromJson(mUrl);
+        List<Fighter> fighters = QueryUtils.fetchFighterData(mUrl);
 
         return fighters;
     }

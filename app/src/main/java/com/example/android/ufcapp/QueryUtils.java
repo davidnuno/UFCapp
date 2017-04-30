@@ -54,7 +54,7 @@ public class QueryUtils {
 
             JSONArray fightersArray = new JSONArray(fighterJSON);
 
-            for (int index = 0; index < fightersArray.length(); index++) {
+            for (int index = 0; index < 10 /*fightersArray.length()*/; index++) {
 
                 Log.v(LOG_TAG, "Retrieving fighter info from JSON..");
                 //Retrieve the fighters first name
@@ -171,7 +171,7 @@ public class QueryUtils {
         return jsonResponse;
     }//END OF makeHttpRequest METHOD
 
-    public static List<Fighter> fetchEarthquakeData(String requestURL) {
+    public static List<Fighter> fetchFighterData(String requestURL) {
         //Crete the URL from String
         URL url = createUrl(requestURL);
 

@@ -3,6 +3,7 @@ package com.example.android.ufcapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,8 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         super(context, 0, fighters);
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         View listItemView = convertView;
 
@@ -47,6 +47,7 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         //Find the fighter name ID
         TextView fighterName = (TextView) listItemView.findViewById(R.id.fighter_name);
 
+        Log.v(LOG_TAG, "Displaying fighter name..");
         //Set the fighter name
         fighterName.setText(concatenateName(currentFighter.getFirstName(), currentFighter.getLastName(), currentFighter.getNickname()));
 
