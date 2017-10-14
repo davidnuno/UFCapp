@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +19,23 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
 
     //The log tag used for tracking purposes.
     private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
-
-    /**
-     * The {@link FighterAdapter} is used to view the various articles through a ListView.
-     */
-    private FighterAdapter mAdapter;
-
     /**
      * Constant value for the earthquake loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int FIGHTER_LOADER_ID = 1;
-
     /**
      * This is the {@link String} URL used to fetch the JSON data.
      */
     private static final String FIGHTER_REQUEST_URL = "http://ufc-data-api.ufc.com/api/v3/iphone/fighters";
+    /**
+     * The {@link FighterAdapter} is used to view the various articles through a ListView.
+     */
+    private FighterAdapter mAdapter;
+    /**
+     * The empty state {@link TextView} when there are no fighters found.
+     */
+    private TextView mEmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,10 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
         mAdapter = new FighterAdapter(FightersActivity.this, new ArrayList<Fighter>());
 
         ListView fighterListView = (ListView) findViewById(R.id.fighter_list);
+
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+
+        fighterListView.setEmptyView(mEmptyStateTextView);
 
         if (fighterListView != null)
             fighterListView.setAdapter(mAdapter);
@@ -62,7 +68,9 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
 
             loaderManager.initLoader(FIGHTER_LOADER_ID, null, this);
         } else {
-            //Do something else.
+            //Display no internet connection.
+            //This is causing it to crash.
+            //mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
     }
