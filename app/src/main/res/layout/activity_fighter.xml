@@ -37,5 +37,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="8 - 0 - 1"/>
+
+        <TextView
+            android:id="@+id/fighter_weight_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Featherweight" />
+
+        <TextView
+            android:id="@+id/fighter_champ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorGold"
+            tools:text="Champion" />
     </LinearLayout>
 </LinearLayout>

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -55,11 +57,27 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         //Find the thumbnail ImageView ID
         ImageView thumbnail = (ImageView) listItemView.findViewById(R.id.fighter_thumbnail);
 
+        //Find the fighter weight class ID
+        TextView fighterWeight = (TextView) listItemView.findViewById(R.id.fighter_weight_class);
+
+        //Find the champion ID
+        TextView isChamp = (TextView) listItemView.findViewById(R.id.fighter_champ);
+
+        if (currentFighter.isChampion()) {
+
+            isChamp.setText(R.string.champion);
+        } else {
+            isChamp.setVisibility(TextView.INVISIBLE);
+        }
+
         //Set the fighter name
         fighterName.setText(concatenateName(currentFighter.getFirstName(), currentFighter.getLastName(), currentFighter.getNickname()));
 
         //Set the fighter record
-        fighterRecord.setText(concatenateRecord(currentFighter.getWins(), currentFighter.getLosses()));
+        fighterRecord.setText(concatenateRecord(currentFighter.getWins(), currentFighter.getLosses(), currentFighter.getDraws()));
+
+        //Set the fighter weight
+        fighterWeight.setText(currentFighter.getWeight().replaceAll("_", " "));
 
         //Display fighter thumbnail using the Picasso library
         Picasso.with(getContext()).load(currentFighter.getThumbnail())
@@ -92,14 +110,21 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
     /**
      * This method is used to concatenate a {@link Fighter} record to proper display format.
      *
-     * @param wins   The {@link Fighter} number of wins.
-     * @param losses The {@link Fighter} number of losses.
+     * Ex. 10-2-1
+     *
+     * @param wins      The {@link Fighter} number of wins.
+     * @param losses    The {@link Fighter} number of losses.
+     * @param draws     The {@link Fighter} number of draws.
      */
-    private String concatenateRecord(int wins, int losses) {
+    private String concatenateRecord(int wins, int losses, int draws) {
 
         String record;
 
-        record = wins + "-" + losses;
+        if (draws < 1) {
+            record = wins + "-" + losses;
+        } else {
+            record = wins + "-" + losses + "-" + draws;
+        }
 
         return record;
     }

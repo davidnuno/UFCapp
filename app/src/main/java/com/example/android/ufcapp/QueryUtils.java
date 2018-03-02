@@ -51,7 +51,7 @@ public class QueryUtils {
 
             JSONArray fightersArray = new JSONArray(fighterJSON);
 
-            for (int index = 0; index < 20 /*fightersArray.length()*/; index++) {
+            for (int index = 0; index < fightersArray.length(); index++) {
 
                 Log.v(LOG_TAG, "Retrieving fighter info from JSON..");
                 //Retrieve the fighters first name
@@ -62,6 +62,9 @@ public class QueryUtils {
 
                 //Retrieve the fighters last name
                 String nName = fightersArray.getJSONObject(index).getString("nickname");
+
+                //Retrieve the fighters weight class
+                String weight = fightersArray.getJSONObject(index).getString("weight_class");
 
                 //Retrieve the fighters nickname
                 int wins = fightersArray.getJSONObject(index).getInt("wins");
@@ -79,7 +82,7 @@ public class QueryUtils {
                 String thumbnail = fightersArray.getJSONObject(index).getString("profile_image");
 
                 Log.v(LOG_TAG, "Creating a new fighter object");
-                fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, isChamp, thumbnail));
+                fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, weight, isChamp, thumbnail));
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,

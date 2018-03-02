@@ -25,6 +25,11 @@ public class Fighter {
     /** Number of draws. */
     private int draws;
 
+    /**
+     * Weight class
+     */
+    private String weightClass;
+
     /** Is he/she champion is division. */
     private boolean isChampion;
 
@@ -35,21 +40,22 @@ public class Fighter {
      * The constructor.
      *
      * @param firstName The first name of the fighter.
-     * @param theLast  The last name of the fighter.
+     * @param lastName  The last name of the fighter.
      * @param wins  The number of wins of the fighter.
      * @param losses  The number of losses of the fighter.
      * @param draws The number of draws of the fighter.
      * @param isChampion Is the fighter a current champion in his/her weight division.
      * @param thumbnail The fighter thumbnail.
      * */
-    public Fighter (String firstName, String theLast, String nickname, int wins, int losses, int draws, boolean isChampion, String thumbnail) {
+    public Fighter(String firstName, String lastName, String nickname, int wins, int losses, int draws, String weightClass, boolean isChampion, String thumbnail) {
 
         this.firstName  = firstName;
-        this.lastName   = theLast;
+        this.lastName = lastName;
         this.wins       = wins;
         this.nickname   = nickname;
         this.losses     = losses;
-        this.draws      = draws;
+        this.draws = draws;
+        this.weightClass = weightClass;
         this.isChampion = isChampion;
         this.thumbnail  = thumbnail;
     }
@@ -97,7 +103,8 @@ public class Fighter {
         return isChampion;
     }
 
-    public void setThumbnail(String thumbnail) { this.thumbnail = thumbnail; }
+    public String getWeight() {
+        return weightClass; }
 
     public String getThumbnail() { return thumbnail; }
 }
