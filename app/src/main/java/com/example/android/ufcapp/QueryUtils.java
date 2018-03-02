@@ -79,7 +79,7 @@ public class QueryUtils {
                 boolean isChamp = fightersArray.getJSONObject(index).getBoolean("title_holder");
 
                 //Retrieve fighter thumbnail
-                String thumbnail = fightersArray.getJSONObject(index).getString("thumbnail");
+                String thumbnail = fightersArray.getJSONObject(index).getString("profile_image");
 
                 Log.v(LOG_TAG, "Creating a new fighter object");
                 fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, isChamp, thumbnail));
