@@ -5,7 +5,6 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +16,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 /**
  * Created by david on 4/2/17.
@@ -54,7 +51,7 @@ public class QueryUtils {
 
             JSONArray fightersArray = new JSONArray(fighterJSON);
 
-            for (int index = 0; index < 10 /*fightersArray.length()*/; index++) {
+            for (int index = 0; index < 20 /*fightersArray.length()*/; index++) {
 
                 Log.v(LOG_TAG, "Retrieving fighter info from JSON..");
                 //Retrieve the fighters first name
@@ -88,7 +85,7 @@ public class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the fighter JSON results", e);
         }
         return fighters;
     }

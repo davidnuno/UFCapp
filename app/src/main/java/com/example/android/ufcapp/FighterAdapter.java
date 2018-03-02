@@ -1,9 +1,6 @@
 package com.example.android.ufcapp;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -64,9 +59,9 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         fighterName.setText(concatenateName(currentFighter.getFirstName(), currentFighter.getLastName(), currentFighter.getNickname()));
 
         //Set the fighter record
-        fighterRecord.setText(concatenateFighterRecord(currentFighter.getWins(), currentFighter.getLosses()));
+        fighterRecord.setText(concatenateRecord(currentFighter.getWins(), currentFighter.getLosses()));
 
-        //Display thumbnail using the Picasso library
+        //Display fighter thumbnail using the Picasso library
         Picasso.with(getContext()).load(currentFighter.getThumbnail())
                 .transform(new RoundedCornersTransformation(10, 5))
                 .into(thumbnail);
@@ -94,7 +89,13 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         }
     }
 
-    private String concatenateFighterRecord(int wins, int losses) {
+    /**
+     * This method is used to concatenate a {@link Fighter} record to proper display format.
+     *
+     * @param wins   The {@link Fighter} number of wins.
+     * @param losses The {@link Fighter} number of losses.
+     */
+    private String concatenateRecord(int wins, int losses) {
 
         String record;
 
