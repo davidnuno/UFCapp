@@ -83,6 +83,12 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     public void onLoadFinished(Loader<List<Fighter>> loader, List<Fighter> data) {
         mAdapter.clear();
+
+        // If there is a valid list of {@link Article}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (data != null && !data.isEmpty()) {
+            mAdapter.addAll(data);
+        }
     }
 
     @Override
