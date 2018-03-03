@@ -30,6 +30,11 @@ public class Fighter {
      */
     private String weightClass;
 
+    /**
+     * Link info
+     */
+    private String link;
+
     /** Is he/she champion is division. */
     private boolean isChampion;
 
@@ -47,7 +52,7 @@ public class Fighter {
      * @param isChampion Is the fighter a current champion in his/her weight division.
      * @param thumbnail The fighter thumbnail.
      * */
-    public Fighter(String firstName, String lastName, String nickname, int wins, int losses, int draws, String weightClass, boolean isChampion, String thumbnail) {
+    public Fighter(String firstName, String lastName, String nickname, int wins, int losses, int draws, String weightClass, boolean isChampion, String thumbnail, String link) {
 
         this.firstName  = firstName;
         this.lastName = lastName;
@@ -57,7 +62,8 @@ public class Fighter {
         this.draws = draws;
         this.weightClass = weightClass;
         this.isChampion = isChampion;
-        this.thumbnail  = thumbnail;
+        this.thumbnail = thumbnail;
+        this.link       = link;
     }
 
     /**
@@ -106,5 +112,11 @@ public class Fighter {
     public String getWeight() {
         return weightClass; }
 
-    public String getThumbnail() { return thumbnail; }
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getLink() {
+        return link;
+    }
 }

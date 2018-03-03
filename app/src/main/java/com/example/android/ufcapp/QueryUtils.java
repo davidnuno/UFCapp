@@ -81,8 +81,11 @@ public class QueryUtils {
                 //Retrieve fighter thumbnail
                 String thumbnail = fightersArray.getJSONObject(index).getString("profile_image");
 
+                //Retrieve fighter link
+                String link = fightersArray.getJSONObject(index).getString("link");
+
                 Log.v(LOG_TAG, "Creating a new fighter object");
-                fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, weight, isChamp, thumbnail));
+                fighters.add(new Fighter(fName, lName, nName, wins, losses, draws, weight, isChamp, thumbnail, link));
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
