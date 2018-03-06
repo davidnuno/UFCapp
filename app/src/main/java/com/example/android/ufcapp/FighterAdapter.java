@@ -158,7 +158,10 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
                         //If you find a match, add it to your new ArrayList
                         //I'm not sure how you're going to do comparison, so you'll need to fill out this conditional
 
-                        if (/*data matches your filter criteria*/ data.getFirstName() == charSequence || data.getLastName() == charSequence || data.getNickname() == charSequence) {
+                        if (charSequence.toString().contains(data.getFirstName()) ||
+                                charSequence.toString().contains(data.getLastName()) ||
+                                charSequence.toString().contains(data.getNickname())) {
+
                             filterResultsData.add(data);
                         }
                     }
