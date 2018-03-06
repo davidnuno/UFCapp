@@ -10,9 +10,12 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +48,8 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fighters);
+
+        EditText searchBar = (EditText) findViewById(R.id.searchFilter);
 
         mAdapter = new FighterAdapter(FightersActivity.this, new ArrayList<Fighter>());
 
@@ -93,6 +98,24 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
             //This is causing it to crash.
             //mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charsequence, int start, int before, int count) {
+
+                (FightersActivity.this).mAdapter.getFilter().filter(charsequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
     }
