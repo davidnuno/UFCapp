@@ -1,17 +1,20 @@
 package com.example.android.ufcapp;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -20,10 +23,14 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Created by david on 4/2/17.
  */
 
-public class FighterAdapter extends ArrayAdapter<Fighter> {
+public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable {
 
     //The log tag used for tracking purposes.
     private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
+
+    //Two data sources, the original data and filtered data
+    private ArrayList<HashMap<String, String>> originalData;
+    private ArrayList<HashMap<String, String>> filteredData;
 
     /**
      * Constructs a new {@link FighterAdapter}.
@@ -127,5 +134,45 @@ public class FighterAdapter extends ArrayAdapter<Fighter> {
         }
 
         return record;
+    }
+
+    @NonNull
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                FilterResults results = new FilterResults();
+
+                if (charSequence == null || charSequence.length() == 0) {
+                    results.values = originalData;
+                    results.count = originalData.size();
+                } else {
+                    ArrayList<HashMap<String, String>> filterResultsData = new ArrayList<HashMap<String, String>>();
+
+                    for (HashMap<String, String> data : originalData) {
+                        //In this loop, you'll filter through originalData and compare each item to charSequence.
+                        //If you find a match, add it to your new ArrayList
+                        //I'm not sure how you're going to do comparison, so you'll need to fill out this conditional
+                        if (/*data matches your filter criteria*/ true) {
+                            filterResultsData.add(data);
+                        }
+                    }
+
+                    results.values = filterResultsData;
+                    results.count = filterResultsData.size();
+                }
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredData = (ArrayList<HashMap<String, String>>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

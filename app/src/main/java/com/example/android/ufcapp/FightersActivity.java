@@ -79,6 +79,28 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
                 startActivity(websiteIntent);
             }
         });
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence text, int start, int before, int count) {
+
+                Log.v(LOG_TAG, "text =  " + text);
+
+                (FightersActivity.this).mAdapter.getFilter().filter(text);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         //Start Connectivity Manager
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -98,26 +120,6 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
             //This is causing it to crash.
             //mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
-
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charsequence, int start, int before, int count) {
-
-                (FightersActivity.this).mAdapter.getFilter().filter(charsequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
     }
 
     @Override

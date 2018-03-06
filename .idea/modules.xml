@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UFCapp.iml" filepath="$PROJECT_DIR$/UFCapp.iml" />
-      <module fileurl="file://C:\Users\dnuno\Desktop\UFCapp\UFCapp.iml" filepath="C:\Users\dnuno\Desktop\UFCapp\UFCapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\dnuno\Desktop\UFCapp\app\app.iml" filepath="C:\Users\dnuno\Desktop\UFCapp\app\app.iml" />
     </modules>
   </component>
 </project>
