@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +30,8 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
     private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
 
     //Two data sources, the original data and filtered data
-    private ArrayList<HashMap<String, String>> originalData;
-    private ArrayList<HashMap<String, String>> filteredData;
+    private ArrayList<Fighter> originalData;
+    private ArrayList<Fighter> filteredData;
 
     /**
      * Constructs a new {@link FighterAdapter}.
@@ -150,13 +151,14 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
                     results.values = originalData;
                     results.count = originalData.size();
                 } else {
-                    ArrayList<HashMap<String, String>> filterResultsData = new ArrayList<HashMap<String, String>>();
+                    List<Fighter> filterResultsData = new ArrayList<>();
 
-                    for (HashMap<String, String> data : originalData) {
+                    for (Fighter data : originalData) {
                         //In this loop, you'll filter through originalData and compare each item to charSequence.
                         //If you find a match, add it to your new ArrayList
                         //I'm not sure how you're going to do comparison, so you'll need to fill out this conditional
-                        if (/*data matches your filter criteria*/ true) {
+
+                        if (/*data matches your filter criteria*/ data.getFirstName() == charSequence || data.getLastName() == charSequence || data.getNickname() == charSequence) {
                             filterResultsData.add(data);
                         }
                     }
@@ -170,7 +172,7 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                filteredData = (ArrayList<HashMap<String, String>>) filterResults.values;
+                filteredData = (ArrayList<Fighter>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
