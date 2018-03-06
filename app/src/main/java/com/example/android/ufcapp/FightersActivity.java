@@ -1,14 +1,18 @@
 package com.example.android.ufcapp;
 
 import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.app.LoaderManager.LoaderCallbacks;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,6 +57,23 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
         if (fighterListView != null)
             fighterListView.setAdapter(mAdapter);
 
+        //When the user clicks on a specific article, this will link them to the site.
+        fighterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Fighter currentFighter = mAdapter.getItem(position);
+
+                //Create the URI from the article URL String
+                Uri articleUri = Uri.parse(currentFighter.getLink());
+
+                //Create the intent
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+
+                //Send user to article site
+                startActivity(websiteIntent);
+            }
+        });
         //Start Connectivity Manager
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -72,6 +93,7 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
             //This is causing it to crash.
             //mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
+
 
     }
 
