@@ -1,7 +1,6 @@
 package com.example.android.ufcapp;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -30,29 +30,100 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
     private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
 
     //Two data sources, the original data and filtered data
-    private ArrayList<Fighter> originalData;
-    private ArrayList<Fighter> filteredData;
+    private ArrayList<HashMap<String, String>> originalData;
+    private ArrayList<HashMap<String, String>> filteredData;
 
+
+    //global list of fighters that never changes once its populated with data
+    private List<Fighter> fighters = null;
+
+    private Filter mikesAwesomeFilter;
     /**
      * Constructs a new {@link FighterAdapter}.
      *
      * @param context  of the app.
-     * @param fighters is the list of articles, which is the data source of the adapter.
+     * @param tempFightersList is the list of articles, which is the data source of the adapter.
      */
-    public FighterAdapter(Context context, List<Fighter> fighters) {
+    public FighterAdapter(Context context, List<Fighter> tempFightersList) {
 
-        super(context, 0, fighters);
+        super(context, 0, tempFightersList);
+
+
+        mikesAwesomeFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint)
+            {
+                FilterResults filterResults = new FilterResults();
+                List<Fighter> tempList=new LinkedList<>();
+                //constraint is the result from text you want to filter against.
+                //objects is your data set you will filter from
+
+                System.out.println("Constraint is "+constraint+" and fighters size is "+fighters.size());
+                if(constraint != null )
+                {
+
+
+                    for(Fighter fighter : fighters)
+                    {
+                        List<String> searchableInfo = getSearchableInfo(fighter);
+                        for(String info : searchableInfo )
+                        {
+                            if(info.toLowerCase().contains(constraint))
+                            {
+                                tempList.add(fighter);
+                                break;
+                            }
+                        }
+                    }
+
+                    //following two lines is very important
+                    //as publish result can only take FilterResults objects
+                    filterResults.values = tempList;
+                    filterResults.count = tempList.size();
+                }
+                return filterResults;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence contraint, FilterResults results)
+            {
+
+                if(results.values==null)
+                {
+                    notifyDataSetInvalidated();
+                    return;
+                }
+
+                List<Fighter> filteredList = (List<Fighter>)results.values;
+                clear();
+                addAll(filteredList);
+                if (results.count > 0) {
+                    notifyDataSetChanged();
+                } else {
+                    notifyDataSetInvalidated();
+                }
+            }
+        };
     }
+    @Override
+    public Filter getFilter() {
+        return mikesAwesomeFilter;
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
+
         View listItemView = convertView;
 
-        if (listItemView == null) {
+        if (listItemView == null ) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.activity_fighter, parent, false);
         }
+
 
         Fighter currentFighter = getItem(position);
 
@@ -124,7 +195,8 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
      * @param losses    The {@link Fighter} number of losses.
      * @param draws     The {@link Fighter} number of draws.
      */
-    private String concatenateRecord(int wins, int losses, int draws) {
+    private String concatenateRecord(int wins, int losses, int draws)
+    {
 
         String record;
 
@@ -137,47 +209,48 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
         return record;
     }
 
-    @NonNull
-    @Override
-    public Filter getFilter() {
-
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-
-                FilterResults results = new FilterResults();
-
-                if (charSequence == null || charSequence.length() == 0) {
-                    results.values = originalData;
-                    results.count = originalData.size();
-                } else {
-                    List<Fighter> filterResultsData = new ArrayList<>();
-
-                    for (Fighter data : originalData) {
-                        //In this loop, you'll filter through originalData and compare each item to charSequence.
-                        //If you find a match, add it to your new ArrayList
-                        //I'm not sure how you're going to do comparison, so you'll need to fill out this conditional
-
-                        if (charSequence.toString().contains(data.getFirstName()) ||
-                                charSequence.toString().contains(data.getLastName()) ||
-                                charSequence.toString().contains(data.getNickname())) {
-
-                            filterResultsData.add(data);
-                        }
-                    }
-
-                    results.values = filterResultsData;
-                    results.count = filterResultsData.size();
-                }
-
-                return results;
+    private List<String> getSearchableInfo(Fighter fighter)
+    {
+        List<String> searchCriteria =  new ArrayList<>( Arrays.asList(fighter.getFirstName()+" "+fighter.getLastName()));
+        String [] stuffToAdd = {fighter.getNickname()+"",fighter.getDraws()+"",
+                fighter.getLosses()+"", fighter.getWins()+"", fighter.getWeight()+""};
+        for(String infoAboutFighter : stuffToAdd)
+        {
+            if(infoAboutFighter!=null && !infoAboutFighter.isEmpty() && !infoAboutFighter.equals("null"))
+            {
+                searchCriteria.add(infoAboutFighter);
             }
+        }
+        return searchCriteria;
+    }
 
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                filteredData = (ArrayList<Fighter>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
+    /**
+     * Outside Classes wanting to add data should call this instead
+     * @param data
+     */
+
+    public void myaddAll(List<Fighter> data)
+    {
+        if(fighters!=null)
+           throw new RuntimeException("BAD");
+
+
+        addAll(data);
+
+        fighters = new ArrayList<>(data);
+
+        System.out.println("size is "+fighters.size());
+    }
+
+    /**
+     * Outside Classes wanting to delete data should call this instead
+     */
+    public void myclear()
+    {
+        if(fighters!=null) {
+            fighters.clear();
+
+            this.clear();
+        }
     }
 }

@@ -18,9 +18,11 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FightersActivity extends AppCompatActivity implements LoaderCallbacks<List<Fighter>> {
 
@@ -49,7 +51,7 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fighters);
 
-        EditText searchBar = (EditText) findViewById(R.id.searchFilter);
+        final EditText searchBar = (EditText) findViewById(R.id.searchFilter);
 
         mAdapter = new FighterAdapter(FightersActivity.this, new ArrayList<Fighter>());
 
@@ -89,15 +91,13 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
             @Override
             public void onTextChanged(CharSequence text, int start, int before, int count) {
 
-                Log.v(LOG_TAG, "text =  " + text);
-
-                (FightersActivity.this).mAdapter.getFilter().filter(text);
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String text = searchBar.getText().toString().toLowerCase(Locale.getDefault());
+                mAdapter.getFilter().filter(text);
             }
         });
 
@@ -129,17 +129,23 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
 
     @Override
     public void onLoadFinished(Loader<List<Fighter>> loader, List<Fighter> data) {
-        mAdapter.clear();
+
+        for(Fighter f : data)
+        {
+            System.out.println(f.getFirstName());
+        }
+        mAdapter.myclear();
 
         // If there is a valid list of {@link Article}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
-        if (data != null && !data.isEmpty()) {
-            mAdapter.addAll(data);
+        if (data != null && !data.isEmpty())
+        {
+            mAdapter.myaddAll(data);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<List<Fighter>> loader) {
-        mAdapter.clear();
+        mAdapter.myclear();
     }
 }
