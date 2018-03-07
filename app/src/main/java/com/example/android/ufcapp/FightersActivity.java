@@ -14,11 +14,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +52,8 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
         setContentView(R.layout.activity_fighters);
 
         final EditText searchBar = (EditText) findViewById(R.id.searchFilter);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         mAdapter = new FighterAdapter(FightersActivity.this, new ArrayList<Fighter>());
 

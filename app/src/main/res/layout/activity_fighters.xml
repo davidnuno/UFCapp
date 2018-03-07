@@ -8,7 +8,9 @@
     <EditText
         android:id="@+id/searchFilter"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:hint="@string/hint_fighters" />
 
     <ListView
         android:id="@+id/fighter_list"

@@ -178,7 +178,7 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
         String fullName;
 
         if (nickname != null && !nickname.isEmpty() && nickname != "null") {
-            fullName = first + " " + "\"" + nickname + "\"" + last;
+            fullName = first + " " + "\"" + nickname + "\" " + last;
             return fullName;
         } else {
             fullName = first + " " + last;
