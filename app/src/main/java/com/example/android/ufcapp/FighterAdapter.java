@@ -29,11 +29,6 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
     //The log tag used for tracking purposes.
     private final static String LOG_TAG = " Steps => " + FightersActivity.class.getSimpleName();
 
-    //Two data sources, the original data and filtered data
-    private ArrayList<HashMap<String, String>> originalData;
-    private ArrayList<HashMap<String, String>> filteredData;
-
-
     //global list of fighters that never changes once its populated with data
     private List<Fighter> fighters = null;
 
@@ -51,25 +46,22 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
 
         mikesAwesomeFilter = new Filter() {
             @Override
-            protected FilterResults performFiltering(CharSequence constraint)
-            {
+            protected FilterResults performFiltering(CharSequence constraint) {
+
                 FilterResults filterResults = new FilterResults();
-                List<Fighter> tempList=new LinkedList<>();
+                List<Fighter> tempList = new LinkedList<>();
                 //constraint is the result from text you want to filter against.
                 //objects is your data set you will filter from
 
                 System.out.println("Constraint is "+constraint+" and fighters size is "+fighters.size());
-                if(constraint != null )
-                {
-
+                if (constraint != null) {
 
                     for(Fighter fighter : fighters)
                     {
                         List<String> searchableInfo = getSearchableInfo(fighter);
-                        for(String info : searchableInfo )
-                        {
-                            if(info.toLowerCase().contains(constraint))
-                            {
+                        for (String info : searchableInfo) {
+
+                            if (info.toLowerCase().contains(constraint)) {
                                 tempList.add(fighter);
                                 break;
                             }
@@ -86,11 +78,10 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
 
             @SuppressWarnings("unchecked")
             @Override
-            protected void publishResults(CharSequence contraint, FilterResults results)
-            {
+            protected void publishResults(CharSequence contraint, FilterResults results) {
 
-                if(results.values==null)
-                {
+                if (results.values == null) {
+
                     notifyDataSetInvalidated();
                     return;
                 }
@@ -98,9 +89,12 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
                 List<Fighter> filteredList = (List<Fighter>)results.values;
                 clear();
                 addAll(filteredList);
+
                 if (results.count > 0) {
+
                     notifyDataSetChanged();
                 } else {
+
                     notifyDataSetInvalidated();
                 }
             }
@@ -115,15 +109,12 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
-
         View listItemView = convertView;
 
         if (listItemView == null ) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.activity_fighter, parent, false);
         }
-
 
         Fighter currentFighter = getItem(position);
 
@@ -195,8 +186,7 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
      * @param losses    The {@link Fighter} number of losses.
      * @param draws     The {@link Fighter} number of draws.
      */
-    private String concatenateRecord(int wins, int losses, int draws)
-    {
+    private String concatenateRecord(int wins, int losses, int draws) {
 
         String record;
 
@@ -212,12 +202,13 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
     private List<String> getSearchableInfo(Fighter fighter)
     {
         List<String> searchCriteria =  new ArrayList<>( Arrays.asList(fighter.getFirstName()+" "+fighter.getLastName()));
+
         String [] stuffToAdd = {fighter.getNickname()+"",fighter.getDraws()+"",
                 fighter.getLosses()+"", fighter.getWins()+"", fighter.getWeight()+""};
-        for(String infoAboutFighter : stuffToAdd)
-        {
-            if(infoAboutFighter!=null && !infoAboutFighter.isEmpty() && !infoAboutFighter.equals("null"))
-            {
+
+        for (String infoAboutFighter : stuffToAdd) {
+
+            if (infoAboutFighter != null && !infoAboutFighter.isEmpty() && !infoAboutFighter.equals("null")) {
                 searchCriteria.add(infoAboutFighter);
             }
         }

@@ -93,7 +93,6 @@ public class FightersActivity extends AppCompatActivity implements LoaderCallbac
             @Override
             public void onTextChanged(CharSequence text, int start, int before, int count) {
 
-
             }
 
             @Override
