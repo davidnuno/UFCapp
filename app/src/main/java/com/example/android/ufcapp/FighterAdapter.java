@@ -56,9 +56,10 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
                 System.out.println("Constraint is "+constraint+" and fighters size is "+fighters.size());
                 if (constraint != null) {
 
-                    for(Fighter fighter : fighters)
-                    {
+                    for (Fighter fighter : fighters) {
+
                         List<String> searchableInfo = getSearchableInfo(fighter);
+
                         for (String info : searchableInfo) {
 
                             if (info.toLowerCase().contains(constraint)) {
@@ -220,12 +221,15 @@ public class FighterAdapter extends ArrayAdapter<Fighter> implements Filterable 
      * @param data
      */
 
-    public void myaddAll(List<Fighter> data)
-    {
-        if(fighters!=null)
-           throw new RuntimeException("BAD");
+    public void myaddAll(List<Fighter> data) {
 
+        //This was causing crash when clicking on fighter ListView and coming back to app.
 
+        /*if(fighters != null) {
+
+            throw new RuntimeException("BAD");
+        }
+        */
         addAll(data);
 
         fighters = new ArrayList<>(data);
